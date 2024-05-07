@@ -16,7 +16,9 @@ export class CoursesService {
   ) {}
 
   async findAll() {
-    return this.courseRepository.find();
+    return this.courseRepository.find({
+      relations: ['tags'],
+    });
   }
 
   async findOne(id: number) {
@@ -24,6 +26,7 @@ export class CoursesService {
       where: {
         id,
       },
+      relations: ['tags'],
     });
 
     if (!course)
