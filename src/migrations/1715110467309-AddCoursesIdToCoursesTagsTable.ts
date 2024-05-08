@@ -30,5 +30,8 @@ export class AddCoursesIdToCoursesTagsTable1715110467309
     );
   }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {}
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('courses_tags', 'courses_tags_courses');
+    await queryRunner.dropColumn('courses_tags', 'coursesId');
+  }
 }
