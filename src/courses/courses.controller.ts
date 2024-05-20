@@ -37,7 +37,7 @@ export class CoursesController {
     return this.courseService.update(id, updateCourseDTO);
   }
 
-  @HttpCode(HttpStatus.NOT_FOUND)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.courseService.remove(id);

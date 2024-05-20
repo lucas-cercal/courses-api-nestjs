@@ -124,4 +124,13 @@ describe('CoursesController e2e tests', () => {
       expect(res.body.tags[1].name).toEqual(updateData.tags[1]);
     });
   });
+
+  describe('DELETE /courses/:id', () => {
+    it('Should delete a course', async () => {
+      await request(app.getHttpServer())
+        .delete(`/courses/${courses[0].id}`)
+        .expect(204)
+        .expect({});
+    });
+  });
 });
