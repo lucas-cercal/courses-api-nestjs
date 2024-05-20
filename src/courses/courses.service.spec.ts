@@ -68,4 +68,28 @@ describe('CoursesService unit tests', () => {
     expect(mockCourseRepository.save).toHaveBeenCalled();
     expect(expectOutputCourses).toStrictEqual(newCourse);
   });
+
+  it('Should list all courses', async () => {
+    //@ts-expect-error defined part of methods
+    service['courseRepository'] = mockCourseRepository;
+    //@ts-expect-error defined part of methods
+    service['tagRepository'] = mockTagRepository;
+
+    const courses = await service.findAll();
+
+    expect(mockCourseRepository.find).toHaveBeenCalled();
+    expect(expectOutputCourses).toStrictEqual(courses);
+  });
+
+  it('Should gets a course by id', async () => {
+    //@ts-expect-error defined part of methods
+    service['courseRepository'] = mockCourseRepository;
+    //@ts-expect-error defined part of methods
+    service['tagRepository'] = mockTagRepository;
+
+    const course = await service.findOne(id);
+
+    expect(mockCourseRepository.findOne).toHaveBeenCalled();
+    expect(expectOutputCourses).toStrictEqual(course);
+  });
 });
