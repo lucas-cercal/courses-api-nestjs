@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
 import { CoursesService } from './courses.service';
 import { CreateCourseDTO } from './dto/create-course.dto';
+import { UpdateCourseDTO } from './dto/update-course.dto';
 
 describe('CoursesService unit tests', () => {
   let service: CoursesService;
@@ -90,6 +91,25 @@ describe('CoursesService unit tests', () => {
     const course = await service.findOne(id);
 
     expect(mockCourseRepository.findOne).toHaveBeenCalled();
+    expect(expectOutputCourses).toStrictEqual(course);
+  });
+
+  it('Should update a course', async () => {
+    //@ts-expect-error defined part of methods
+    service['courseRepository'] = mockCourseRepository;
+    //@ts-expect-error defined part of methods
+    service['tagRepository'] = mockTagRepository;
+
+    const updateCourseDTO: UpdateCourseDTO = {
+      name: 'Test',
+      description: 'Test Description',
+      tags: ['NestJS'],
+    };
+
+    const course = await service.update(id, updateCourseDTO);
+
+    expect(mockCourseRepository.save).toHaveBeenCalled();
+    expect(mockCourseRepository.preload).toHaveBeenCalled();
     expect(expectOutputCourses).toStrictEqual(course);
   });
 });
